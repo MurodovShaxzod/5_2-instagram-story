@@ -8,40 +8,75 @@ body {
   overflow: hidden;
 }
 
+.btn-group {
+  z-index: 100;
+  display: none;
+  transition: .6s ease;
+
+  div {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.158);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    transition: .6s ease;
+    z-index: 100;
+    cursor: pointer;
+
+    i {
+      color: #19181A;
+    }
+  }
+
+  .left-btn {
+    left: -40%;
+  }
+
+  .right-btn {
+    left: 132%;
+  }
+}
+
+.btn-group div:hover {
+  background-color: rgba(255, 255, 255, 0.808);
+}
 .instagram-container {
 
   display: flex;
   transition: .6s ease;
   transform: translateX(0);
-  // align-items: center;
-  width: 350px; 
+  width: 350px;
 
   .instagram-content {
     width: 250px;
     height: 350px;
     z-index: 100;
     margin: 0 50px;
-    transition: .6s ease; 
-    // position: absolute;
+    transition: .6s ease;
+    transform: translateX(0px);
 
     .instagram-content-title {
-      // position: absolute;
       display: flex;
       justify-content: center;
       align-items: center;
       width: 200px;
+      transition: .6s ease;
       padding: 0 25px;
       height: 100%;
 
       img {
-        width: 200px;
+        width: 100%;
         height: auto;
       }
     }
   }
 
   .instagram-content-active {
-    transform: scale(1.8);
-    transition: .6s ease; 
+    transform: scale(2);
+    transition: .6s ease;
   }
 }

@@ -1,4 +1,7 @@
+
 let instagramContainer = document.querySelector(".instagram-container");
+let x = -1; 
+let leftBtn = document.querySelector(".left-btn");
 
 let instagramContent = [
   { img: "002.JPG" },
@@ -12,49 +15,70 @@ let instagramContent = [
   { img: "Helloween_01.jpg" },
   { img: "Nizzle.jpg" },
   { img: "OРЁЛ_01.jpg" },
-  { img: "The Messenger, Bald Eagle.jpg" },
   { img: "White Cat.jpg" },
   { img: "ПАНТЕРА.jpg" },
   { img: "Лапы в верх!_01.jpg" },
   { img: "Белый тигр!.jpg" }
 ];
 
+// <div><img src="img/ПАНТЕРА.JPG" alt="img"></div>
+// <div><img src="img/Белый тигр!.jpg" alt="img"></div>
 function instagramContentFunc() {
   instagramContent.forEach((item) => {
     let row = document.createElement("div");
     row.classList.add("instagram-content");
     row.innerHTML = `
+    
+  <div class="btn-group">
+  <div class="right-btn"><i class='bx bx-chevron-right'></i></div>
+  <div class="left-btn"><i class='bx bx-chevron-left'></i></div>
+  </div>
       <div class="instagram-content-title">
-        <img src="img/${item.img}" alt="img">
-      </div>
-    `
-    instagramContainer.append(row)
-  })
+        <div><img src="img/${item.img}" alt="img"></div>
+      </div>`;
+
+    instagramContainer.append(row);
+  });
 }
 
-function instagramContentClickFunc() {
-  let instagramContents = document.querySelectorAll(".instagram-content"), x = 0;
-  for (let i = 0; i < instagramContents.length; i++) {
-    instagramContents[i].addEventListener("click", (e) => {
-      for (let j = 0; j < instagramContents.length; j++) {
-        instagramContents[j].classList.remove("instagram-content-active");
-        instagramContents[i].classList.add("instagram-content-active");
-      }
 
-      if(e.clientX > 900 && e.clientX < 1150) {
-        instagramContainer.style.transform = `translateX(-${x += 350}px)`
-      } else if (e.clientX > 1150) {
-        instagramContainer.style.transform = `translateX(-${x += 700}px)`
-      }
-      if(e.clientX > 200 && e.clientX < 450) {
-        instagramContainer.style.transform = `translateX(-${x -= 350}px)`
-      } else if (e.clientX < 200) {
-        instagramContainer.style.transform = `translateX(-${x -= 700}px)`
-      }
-      console.log(x);
-    })
+function instagramContentClickActive() {
+  let instagramContents = document.querySelectorAll(".instagram-content");
+
+  for (let i = 0; i < instagramContents.length; i++) {
+    for (let j = 0; j < instagramContents.length; j++) {
+      instagramContents[i].addEventListener("click", () => {
+        instagramContents[j].querySelector(".instagram-content-title").classList.remove("instagram-content-active");
+        instagramContents[j].querySelector(".btn-group").style.display = "none";
+        instagramContents[i].querySelector(".instagram-content-title").classList.add("instagram-content-active");
+        instagramContents[i].querySelector(".btn-group").style.display = "block";
+        x = i;
+        instagramContentTransform();
+      });
+    }
   }
 }
-
 instagramContentFunc();
-instagramContentClickFunc()
+instagramContentClickActive();
+
+function instagramContentTransform() {
+  let translateValue = -x * 350;
+
+  document.querySelectorAll(".instagram-content").forEach((item) => {
+    item.style.transform = `translateX(${translateValue}px)`;
+  });
+}
+
+
+let rightBtn = document.querySelectorAll(".right-btn");
+rightBtn.forEach((item) => {
+  item.addEventListener("click", rightBtnFunc);
+
+})
+function rightBtnFunc() { 
+  x++;
+  instagramContentTransform()
+
+  console.log(1234);
+  console.log(x);
+}
